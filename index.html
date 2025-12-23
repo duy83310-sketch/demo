@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>BookOnline - Đăng nhập</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f5f3;
+        --card: #ffffff;
+        --accent: #0ea5ff; /* xanh nút */
+        --muted: #7b7b82;
+        --radius: 10px;
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #e9e9e9;
+      }
+      .wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        box-sizing: border-box;
+      }
+      .card {
+        width: 1100px;
+        height: 640px;
+        background: var(--card);
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        display: flex;
+      }
+
+      /* left blob area */
+      .left {
+        flex: 1;
+        position: relative;
+        min-width: 480px;
+        background: linear-gradient(180deg, #fbfbfa 0%, #f3f3f1 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
+      /* SVG mask to create blob effect */
+      .left .blob {
+        width: 420px;
+        height: 520px;
+        position: relative;
+      }
+      .blob img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 28px;
+        display: block;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700"><path fill="black" d="M357.5,20.4C401.6,43.8,438.7,82.3,462.9,126.3C487.1,170.3,497.4,219,491.4,266.9C485.3,314.8,463.0,362,432.9,393.5C402.8,425,365.8,440.8,324.9,452.6C283.9,464.3,239.0,472.0,198.3,459.0C157.6,446.0,120.0,412.2,88.1,377.2C56.2,342.1,29.9,305.0,23.2,262.4C16.6,219.8,29.5,171.7,52.2,131.0C74.9,90.4,107.4,58.1,150.4,37.1C193.5,16.1,247.1,-4.9,294.2,2.1C332.6,8.2,313.4,-3.0,357.5,20.4z"/></svg>');
+        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700"><path fill="black" d="M357.5,20.4C401.6,43.8,438.7,82.3,462.9,126.3C487.1,170.3,497.4,219,491.4,266.9C485.3,314.8,463.0,362,432.9,393.5C402.8,425,365.8,440.8,324.9,452.6C283.9,464.3,239.0,472.0,198.3,459.0C157.6,446.0,120.0,412.2,88.1,377.2C56.2,342.1,29.9,305.0,23.2,262.4C16.6,219.8,29.5,171.7,52.2,131.0C74.9,90.4,107.4,58.1,150.4,37.1C193.5,16.1,247.1,-4.9,294.2,2.1C332.6,8.2,313.4,-3.0,357.5,20.4z"/></svg>');
+      }
+
+      /* small logo top-left inside left area */
+      .top-left-logo {
+        position: absolute;
+        left: 24px;
+        top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        color: #222;
+      }
+      .top-left-logo .dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: #111;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      /* right form area */
+      .right {
+        width: 420px;
+        padding: 46px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 14px;
+        box-sizing: border-box;
+      }
+      .right h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+      }
+      .socials {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 6px;
+      }
+      .btn-social {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #e6e6e9;
+        background: #fff;
+        cursor: pointer;
+        box-shadow: none;
+        font-weight: 600;
+      }
+      .btn-social svg {
+        width: 18px;
+        height: 18px;
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 6px 0 12px;
+      }
+      .divider .line {
+        flex: 1;
+        height: 1px;
+        background: #efefef;
+      }
+      .divider .text {
+        font-size: 12px;
+        color: var(--muted);
+        padding: 4px 6px;
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .input {
+        border: 1px solid #e6e6e9;
+        padding: 12px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        outline: none;
+      }
+      .input:focus {
+        box-shadow: 0 0 0 4px rgba(14, 165, 255, 0.06);
+        border-color: #bfe9ff;
+      }
+      .pass-wrap {
+        position: relative;
+      }
+      .toggle-eye {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .btn-login {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 8px;
+        box-shadow: 0 6px 14px rgba(14, 165, 255, 0.18);
+      }
+
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      /* responsive */
+      @media (max-width: 1000px) {
+        .card {
+          width: 92%;
+          flex-direction: column;
+          height: auto;
+        }
+        .left {
+          min-width: unset;
+          height: 300px;
+          padding: 20px;
+        }
+        .blob {
+          width: 320px;
+          height: 240px;
+        }
+        .right {
+          width: 100%;
+          padding: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card" role="main">
+        <div class="left" aria-hidden="true">
+          <div class="top-left-logo">
+            <div class="dot">B</div>
+            <div>BookOnline</div>
+          </div>
+
+          <div class="blob">
+            <!-- Thay 'left-image.jpg' bằng ảnh của bạn (cùng thư mục) -->
+            <img src="left-image.jpg" alt="cover" />
+          </div>
+        </div>
+
+        <div class="right" role="region" aria-label="Đăng nhập">
+          <h2>Đăng nhập</h2>
+
+          <div class="socials">
+            <button class="btn-social" id="googleBtn">
+              <!-- icon google (simplified) -->
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21 12.3c0-.72-.06-1.41-.18-2.07H12v3.92h5.48c-.24 1.32-.96 2.45-2.04 3.2v2.66h3.3c1.94-1.79 3.06-4.42 3.06-7.71z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 22c2.7 0 4.98-.88 6.64-2.4l-3.3-2.66c-.92.62-2.1.99-3.34.99-2.56 0-4.73-1.73-5.5-4.05H3.1v2.53C4.75 19.96 8.13 22 12 22z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M6.5 13.88A5.99 5.99 0 016 12c0-.66.12-1.3.34-1.88V7.59H3.1A9.98 9.98 0 002 12c0 1.6.38 3.12 1.06 4.42l3.34-2.54z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 6.5c1.47 0 2.8.5 3.84 1.47l2.88-2.88C16.9 3.64 14.62 2.5 12 2.5 8.13 2.5 4.75 4.54 3.1 7.41l3.24 2.69C7.27 8.23 9.44 6.5 12 6.5z"
+                  fill="#EA4335"
+                />
+              </svg>
+              Đăng nhập bằng Google
+            </button>
+
+            <button
+              class="btn-social"
+              id="appleBtn"
+              style="border: 1px solid #e6e6e9"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+              >
+                <path
+                  d="M16.365 1.43c0 1.025-.386 2.03-1.094 2.78-.796.86-1.94 1.47-3.07 1.58.12-1.09.59-2.18 1.406-2.91.75-.664 1.72-1.243 2.758-1.45.106-.025.21-.034.29-.004zM12 4.5c-1.67 0-3.13.88-4 2.28-.77 1.24-.96 2.78-.5 4.2.49 1.52 1.6 3.1 3.05 3.1.48 0 .96-.16 1.4-.48.46-.34.89-.52 1.29-.52.38 0 .84.2 1.36.54 1.18.78 2.6 1.08 4.08.83.02-2.18-1.06-3.91-2.5-5.06C15.62 7.68 14.01 6.42 12 6.42V4.5z"
+                />
+              </svg>
+              Đăng nhập bằng Apple
+            </button>
+          </div>
+
+          <div class="divider">
+            <div class="line"></div>
+            <div class="text">Hoặc</div>
+            <div class="line"></div>
+          </div>
+
+          <div class="form-field">
+            <label class="small">Email</label>
+            <input
+              id="email"
+              class="input"
+              type="email"
+              placeholder="Email của bạn"
+            />
+          </div>
+
+          <div class="form-field">
+            <label class="small">Mật khẩu</label>
+            <div class="pass-wrap">
+              <input
+                id="password"
+                class="input"
+                type="password"
+                placeholder="Mật khẩu"
+              />
+              <button
+                class="toggle-eye"
+                id="togglePass"
+                aria-label="Hiện mật khẩu"
+                title="Hiện mật khẩu"
+              >
+                <!-- simple eye icon -->
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#666"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <label style="display: flex; align-items: center; gap: 8px">
+              <input type="checkbox" id="remember" />
+              <span class="small">Ghi nhớ đăng nhập</span>
+            </label>
+            <a class="small link" href="#">Quên mật khẩu?</a>
+          </div>
+
+          <button class="btn-login" id="loginBtn">Đăng nhập</button>
+
+          <div style="text-align: center; margin-top: 10px">
+            <span class="small"
+              >Chưa có tài khoản? <a class="link" href="#">Đăng ký</a></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle show/hide password
+      const toggle = document.getElementById("togglePass");
+      const pw = document.getElementById("password");
+      let shown = false;
+      toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        shown = !shown;
+        pw.type = shown ? "text" : "password";
+        // optional: change icon (left as simple)
+      });
+
+      // Social buttons (demo)
+      document.getElementById("googleBtn").addEventListener("click", () => {
+        alert("Demo: Đăng nhập bằng Google (giả lập)");
+        // trong thực tế -> OAuth flow
+      });
+      document.getElementById("appleBtn").addEventListener("click", () => {
+        alert("Demo: Đăng nhập bằng Apple (giả lập)");
+      });
+
+      // Basic validation and redirect to dashboard.html
+      document.getElementById("loginBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value.trim();
+        const pass = document.getElementById("password").value.trim();
+        if (!email) {
+          alert("Vui lòng nhập email");
+          return;
+        }
+        if (!pass) {
+          alert("Vui lòng nhập mật khẩu");
+          return;
+        }
+        // Demo check: bất kỳ input nào cũng chấp nhận -> chuyển tới dashboard
+        window.location.href = "dashboard.html";
+      });
+    </script>
+  </body>
+</html>

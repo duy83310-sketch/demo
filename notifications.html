@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Thông báo - BookOnline</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f0f1ef;
+        --muted: #6b6b73;
+        --accent: #0ea5ff;
+        --sidebar-w: 86px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui;
+        background: var(--bg);
+      }
+      .container {
+        max-width: 1200px;
+        margin: 28px auto;
+        padding: 20px;
+        display: flex;
+        gap: 18px;
+      }
+      .sidebar {
+        width: var(--sidebar-w);
+        background: linear-gradient(180deg, #fff, #fafafa);
+        border-radius: 14px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo {
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        background: #111;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        position: relative;
+      }
+      .nav-btn.active {
+        background: linear-gradient(180deg, var(--accent), #06a0e6);
+        color: #fff;
+      }
+      .tooltip {
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 10px;
+        background: #0b1220;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        opacity: 0;
+      }
+      .nav-btn:hover .tooltip {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
+      .spacer {
+        flex: 1;
+      }
+      .main {
+        flex: 1;
+      }
+      .section {
+        background: #fff;
+        padding: 18px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(12, 20, 30, 0.04);
+      }
+      .notif {
+        padding: 12px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .notif.unread {
+        background: linear-gradient(
+          90deg,
+          rgba(14, 165, 255, 0.06),
+          rgba(14, 165, 255, 0.02)
+        );
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">B</div>
+        <button class="nav-btn" data-page="dashboard.html" title="Trang chủ">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 3l8 6v11a1 1 0 0 1-1 1h-5v-7h-4v7H5a1 1 0 0 1-1-1V9l8-6z"
+            /></svg
+          ><span class="tooltip">Trang chủ</span>
+        </button>
+        <button class="nav-btn" data-page="library.html" title="Thư viện">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 6h16v2H4zM4 10h10v2H4zM4 14h16v2H4z" /></svg
+          ><span class="tooltip">Thư viện</span>
+        </button>
+        <button class="nav-btn" data-page="favorites.html" title="Yêu thích">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 21s-6.716-4.433-9.333-7.333A5.5 5.5 0 0 1 4 4.5 5.5 5.5 0 0 1 12 9a5.5 5.5 0 0 1 8-4.5 5.5 5.5 0 0 1 1.333 9.167C18.716 16.567 12 21 12 21z"
+            /></svg
+          ><span class="tooltip">Yêu thích</span>
+        </button>
+        <button
+          class="nav-btn active"
+          data-page="notifications.html"
+          title="Thông báo"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+            /></svg
+          ><span class="tooltip">Thông báo</span>
+        </button>
+        <div class="spacer"></div>
+        <button class="nav-btn" data-page="settings.html" title="Cài đặt">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7z" /></svg
+          ><span class="tooltip">Cài đặt</span>
+        </button>
+        <button
+          class="nav-btn"
+          title="Đăng xuất"
+          onclick="location.href='index.html'"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"
+            /></svg
+          ><span class="tooltip">Đăng xuất</span>
+        </button>
+      </aside>
+
+      <main class="main">
+        <section class="section">
+          <h2>Thông báo</h2>
+          <div class="notif unread">
+            <div style="font-weight: 600">Có sách mới: "Thiên đường sách"</div>
+            <div class="small">1 phút trước</div>
+          </div>
+          <div class="notif">
+            <div style="font-weight: 600">Khuyến mãi 50% cho đơn hàng đầu</div>
+            <div class="small">2 ngày trước</div>
+          </div>
+          <div class="notif">
+            <div style="font-weight: 600">Bạn nhận được bình luận mới</div>
+            <div class="small">1 tuần trước</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      document.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const page = btn.getAttribute("data-page");
+          if (page) location.href = page;
+        });
+      });
+    </script>
+  </body>
+</html>
